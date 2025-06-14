@@ -170,7 +170,7 @@ const Hero = () => {
           
           <motion.div 
             variants={item}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20"
             animate={{
               y: [0, 10, 0],
             }}
@@ -192,7 +192,10 @@ const Hero = () => {
         </motion.div>
       </div>
       
-      {/* Gradient overlay */}
+      {/* Gradient overlay - extended to accommodate fixed scroll indicator */}
+      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 via-gray-900/90 to-transparent pointer-events-none z-10" />
+      
+      {/* Main gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/30 to-transparent pointer-events-none" />
     </section>
   );

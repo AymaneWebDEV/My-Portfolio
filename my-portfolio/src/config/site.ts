@@ -104,32 +104,70 @@ export const SITE_CONFIG = {
   // Projects
   projects: [
     {
+      id: 'chatbot-ai',
       title: 'Assistant Virtuel Intelligent',
-      description: 'Assistant virtuel pour la présentation de produits avec interface d\'administration',
-      tags: ['React.js', 'Spring Boot', 'Rasa NLP', 'JWT'],
-      image: '/images/projects/assistant-virtuel.svg',
+      description: 'Assistant virtuel alimenté par IA pour la présentation interactive de produits avec interface d\'administration complète',
+      longDescription: [
+        'Développement d\'un chatbot intelligent utilisant Rasa NLP pour des conversations naturelles',
+        'Interface d\'administration sécurisée avec authentification JWT',
+        'Tableau de bord analytique pour suivre les interactions utilisateurs',
+        'Déploiement sur serveur Proxmox avec configuration Docker'
+      ],
+      tags: ['React.js', 'Spring Boot', 'Rasa NLP', 'JWT', 'Docker', 'Proxmox'],
+      image: '/src/assets/Projects-Pics/chatbot-ai.png',
       links: {
-        github: '#',
+        github: 'https://github.com/yourusername/assistant-virtuel',
         live: '#'
       }
     },
     {
+      id: 'gestion-emploi',
       title: 'Gestion des Emplois du Temps',
-      description: 'Application de gestion des emplois du temps pour centre de formation',
-      tags: ['Python', 'Tkinter', 'SQLite'],
-      image: '/images/projects/emploi-temps.svg',
+      description: 'Application bureau complète pour la gestion automatisée des emplois du temps académiques',
+      longDescription: [
+        'Interface intuitive avec glisser-déposer pour la création d\'emplois du temps',
+        'Gestion des salles, des formateurs et des groupes d\'étudiants',
+        'Export des plannings aux formats PDF et Excel',
+        'Base de données SQLite pour un stockage local sécurisé'
+      ],
+      tags: ['Python', 'Tkinter', 'SQLite', 'UI/UX Design'],
+      image: '/src/assets/Projects-Pics/gestion-emploi.png',
       links: {
-        github: '#',
+        github: 'https://github.com/yourusername/gestion-emploi',
         live: '#'
       }
     },
     {
-      title: 'Site E-commerce',
-      description: 'Interface utilisateur responsive pour un site de commerce électronique',
-      tags: ['HTML', 'CSS', 'Bootstrap', 'Responsive Design'],
-      image: '/images/projects/ecommerce.svg',
+      id: 'e-learning',
+      title: 'Plateforme E-learning',
+      description: 'Solution complète d\'apprentissage en ligne avec suivi des progrès',
+      longDescription: [
+        'Catalogue de cours avec vidéos, quiz et exercices interactifs',
+        'Tableau de bord étudiant avec suivi des progrès',
+        'Système de certification automatique',
+        'Espace formateur avec outils de création de contenu'
+      ],
+      tags: ['React.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+      image: '/src/assets/Projects-Pics/e-learning.png',
       links: {
-        github: '#',
+        github: 'https://github.com/yourusername/e-learning-platform',
+        live: '#'
+      }
+    },
+    {
+      id: 'e-commerce',
+      title: 'Boutique E-commerce',
+      description: 'Plateforme de commerce électronique moderne avec panier et paiement',
+      longDescription: [
+        'Catalogue de produits avec filtres avancés',
+        'Panier d\'achat persistant',
+        'Processus de paiement sécurisé',
+        'Espace client avec historique des commandes'
+      ],
+      tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Responsive Design'],
+      image: '/src/assets/Projects-Pics/e-com-interface.png',
+      links: {
+        github: 'https://github.com/yourusername/ecommerce-shop',
         live: '#'
       }
     }

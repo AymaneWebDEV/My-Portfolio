@@ -48,13 +48,16 @@ export interface SiteConfig {
   }>;
 }
 
-export interface Project extends SiteProject {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-  image: string;
-  githubUrl?: string;
-  liveUrl?: string;
-  content?: string;
+export interface Project {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly longDescription?: readonly string[];
+  readonly tags: readonly string[];
+  readonly image: string;
+  readonly links: {
+    readonly github: string;
+    readonly live: string;
+  };
+  readonly content?: string;
 }

@@ -10,6 +10,21 @@ import { ArrowTopRightOnSquareIcon, CodeBracketIcon } from '@heroicons/react/24/
 import SITE_CONFIG from '../config/site';
 import type { Project } from '../types/portfolio';
 
+// Import project images
+import chatbotAiImage from '../assets/Projects-Pics/chatbot-ai.png';
+import gestionEmploiImage from '../assets/Projects-Pics/gestion-emploi.png';
+import eLearningImage from '../assets/Projects-Pics/e-learning.png';
+import eComImage from '../assets/Projects-Pics/e-com-interface.png';
+import projectPlaceholderImage from '../assets/project-placeholder.svg';
+
+// Map project IDs to their respective images
+const projectImages: Record<string, string> = {
+  'chatbot-ai': chatbotAiImage,
+  'gestion-emploi': gestionEmploiImage,
+  'e-learning': eLearningImage,
+  'e-commerce': eComImage
+};
+
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -17,7 +32,7 @@ import 'swiper/css/navigation';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<string>('Tous');
-  const [projects] = useState<Project[]>(SITE_CONFIG.projects);
+  const [projects] = useState<readonly Project[]>(() => [...SITE_CONFIG.projects]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const swiperRef = useRef<any>(null);
@@ -26,10 +41,10 @@ const Projects = () => {
     threshold: 0.1,
   });
 
-  const categories = ['Tous', ...new Set(SITE_CONFIG.projects.flatMap((project: Project) => project.tags))];
+  const categories = ['Tous', ...new Set(projects.flatMap((project: Project) => project.tags as readonly string[]))] as string[];
   const filteredProjects = activeFilter === 'Tous' 
-    ? projects 
-    : projects.filter((project: Project) => project.tags.includes(activeFilter));
+    ? [...projects] 
+    : projects.filter((project: Project) => (project.tags as readonly string[]).includes(activeFilter));
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
@@ -158,7 +173,7 @@ const Projects = () => {
               >
                 <div className="relative overflow-hidden aspect-video">
                   <img
-                    src={project.image || '/project-placeholder.jpg'}
+                    src={projectImages[project.id] || projectPlaceholderImage}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -190,28 +205,26 @@ const Projects = () => {
                       <FaArrowRight className="ml-1" size={12} />
                     </button>
                     <div className="flex space-x-3">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-gray-400 hover:text-white transition-colors"
-                        >
-                          <FaGithub size={18} />
-                        </a>
-                      )}
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-gray-400 hover:text-white transition-colors"
-                        >
-                          <FaExternalLinkAlt size={16} />
-                        </a>
-                      )}
+                      <a
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-gray-400 hover:text-white transition-colors"
+                        aria-label={`View ${project.title} on GitHub`}
+                      >
+                        <FaGithub size={18} />
+                      </a>
+                      <a
+                        href={project.links.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-gray-400 hover:text-white transition-colors"
+                        aria-label={`View ${project.title} live demo`}
+                      >
+                        <FaExternalLinkAlt size={16} />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -269,7 +282,7 @@ const Projects = () => {
                   >
                     <div className="relative overflow-hidden aspect-video">
                       <img
-                        src={project.image || '/project-placeholder.jpg'}
+                        src={projectImages[project.id] || projectPlaceholderImage}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -301,30 +314,28 @@ const Projects = () => {
                           <FaArrowRight className="ml-1" size={12} />
                         </button>
                         <div className="flex space-x-3">
-                          {project.githubUrl && (
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="text-gray-400 hover:text-white transition-colors"
-                              title="Voir le code source"
-                            >
-                              <FaGithub size={18} />
-                            </a>
-                          )}
-                          {project.liveUrl && (
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="text-gray-400 hover:text-white transition-colors"
-                              title="Voir en ligne"
-                            >
-                              <FaExternalLinkAlt size={16} />
-                            </a>
-                          )}
+                          <a
+                            href={project.links.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-gray-400 hover:text-white transition-colors"
+                            title="Voir le code source"
+                            aria-label={`View ${project.title} on GitHub`}
+                          >
+                            <FaGithub size={18} />
+                          </a>
+                          <a
+                            href={project.links.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-gray-400 hover:text-white transition-colors"
+                            title="Voir en ligne"
+                            aria-label={`View ${project.title} live demo`}
+                          >
+                            <FaExternalLinkAlt size={16} />
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -378,7 +389,7 @@ const Projects = () => {
 
                 <div className="relative h-64 md:h-80 w-full overflow-hidden">
                   <img
-                    src={selectedProject.image || '/project-placeholder.jpg'}
+                    src={projectImages[selectedProject.id] || projectPlaceholderImage}
                     alt={selectedProject.title}
                     className="w-full h-full object-cover"
                   />
@@ -401,33 +412,42 @@ const Projects = () => {
                 </div>
 
                 <div className="p-6 md:p-8">
-                  <p className="text-gray-300 mb-6">
-                    {selectedProject.content || selectedProject.description}
-                  </p>
+                  <div className="space-y-4">
+                    <p className="text-gray-300">
+                      {selectedProject.description}
+                    </p>
+                    {selectedProject.longDescription && (
+                      <ul className="list-disc list-inside space-y-2 text-gray-300">
+                        {selectedProject.longDescription.map((item, index) => (
+                          <li key={index} className="text-gray-300">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
 
                   <div className="flex flex-wrap gap-4 mt-8">
-                    {selectedProject.githubUrl && (
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
-                      >
-                        <CodeBracketIcon className="w-5 h-5 mr-2" />
-                        Voir le code
-                      </a>
-                    )}
-                    {selectedProject.liveUrl && (
-                      <a
-                        href={selectedProject.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-                      >
-                        <ArrowTopRightOnSquareIcon className="w-5 h-5 mr-2" />
-                        Voir en ligne
-                      </a>
-                    )}
+                    <a
+                      href={selectedProject.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                      aria-label={`View ${selectedProject.title} on GitHub`}
+                    >
+                      <CodeBracketIcon className="w-5 h-5 mr-2" />
+                      Voir le code
+                    </a>
+                    <a
+                      href={selectedProject.links.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+                      aria-label={`View ${selectedProject.title} live demo`}
+                    >
+                      <ArrowTopRightOnSquareIcon className="w-5 h-5 mr-2" />
+                      Voir en ligne
+                    </a>
                   </div>
                 </div>
               </motion.div>
