@@ -279,24 +279,6 @@ const About = () => {
           </motion.p>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div 
-          variants={container}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={item}
-              className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 transform hover:-translate-y-1"
-              whileHover={{ scale: 1.03 }}
-            >
-              <div className="text-4xl font-bold text-purple-400 mb-2">{stat.value}</div>
-              <div className="text-white font-medium">{stat.label}</div>
-              <span className="text-base text-gray-300 font-medium">{stat.description}</span>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* Skills Tabs */}
         <motion.div 
